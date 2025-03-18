@@ -1,0 +1,18 @@
+Now, please generate the codes for the problem above, please keep the format of the codes strictly the same as the codes I have provided as the background information, and you do not have to generate the codes already provided as parameters configuration and post-processing.
+
+Please only keep generating codes, do not generate any descriptions which cannot be run. Remove the ""```python" from the first line, because it cannot be run by the IDE.
+
+Ensure to include the following parts and their corresponding code snippets in this section, maintaining the specified sequence.
+# Define the material property dictionary for columns and girders
+# Define the node coordinates
+# Define boundary conditions (supports)
+# Plot the model before defining elements
+# Add title
+# Define transformation type for elements (Linear)
+# Define column and girder elements (elastic beam-column elements)
+# Define external loads
+# Create a dictionary to store element loads
+# Define time series for constant loads
+# Define load pattern using the constant time series
+# Applying point loads
+# Applying distributed loads
