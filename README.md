@@ -2,23 +2,17 @@
 
 ## Framework
 
-<p align="center">
-  <img src="assets/workflow.pdf" style="width: 100%; height: auto;">
-</p>
+[Workflow Diagram](assets/workflow.pdf)
 
 ## Installation
 
 ## Instruction Examples
 
-<p align="center">
-  <img src="assets/Instruction_examples.pdf" style="width: 100%; height: auto;">
-</p>
+[Instruction Examples](assets/Instruction_examples.pdf)
 
 ## Results
 
-<p align="center">
-  <img src="assets/stability.pdf" style="width: 100%; height: auto;">
-</p>
+[Stability Analysis](assets/stability.pdf)
 
 ## Citation
 
