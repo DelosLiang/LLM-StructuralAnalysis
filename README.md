@@ -1,13 +1,5 @@
 # Integrating Large Language Models for Automated Structural Analysis
 
-### ⚠️ Platform Compatibility Notice
-
-This project was originally developed and tested using **OpenSeesPy on Windows**.  
-While the codebase follows standard Python conventions, **cross-platform compatibility (macOS / Linux)** has **not been verified**.  
-If you encounter execution issues on non-Windows systems, please adjust your local environment accordingly (e.g., OpenSeesPy installation paths, plotting backends, or file permissions).  
-
-We currently focus on functional correctness under Windows and **do not provide official support for other operating systems** at this stage.
-
 ## Framework
 
 <p align="center">
@@ -15,6 +7,14 @@ We currently focus on functional correctness under Windows and **do not provide 
 </p>
 
 ## Installation
+
+### ⚠️ Platform Compatibility Notice
+
+This project was originally developed and tested using **OpenSeesPy on Windows**.  
+While the codebase follows standard Python conventions, **cross-platform compatibility (macOS / Linux)** has **not been verified**.  
+If you encounter execution issues on non-Windows systems, please adjust your local environment accordingly (e.g., OpenSeesPy installation paths, plotting backends, or file permissions).  
+
+We currently focus on functional correctness under Windows and **do not provide official support for other operating systems** at this stage.
 
 ## Instruction Examples
 
