@@ -3,96 +3,96 @@ import os
 
 def fetch_merged_text(db_path, main_number, sub_number):
     """
-    从 SQLite 数据库中查询特定 request 的 merged_text。
+    Query merged_text for a specific request from SQLite database.
 
-    参数：
-        db_path (str): 数据库文件路径。
-        main_number (int): 主编号，例如 5。
-        sub_number (int): 副编号，例如 1。
+    Parameters:
+        db_path (str): Database file path.
+        main_number (int): Main number, e.g., 5.
+        sub_number (int): Sub number, e.g., 1.
 
-    返回：
-        str: 查询到的 merged_text。如果未找到则返回 None。
+    Returns:
+        str: Retrieved merged_text. Returns None if not found.
     """
-    # 初始化 user_message 变量
+    # Initialize user_message variable
     user_message = None
 
-    # 检查数据库文件是否存在
+    # Check if database file exists
     if os.path.exists(db_path):
         try:
-            # 连接到 SQLite 数据库
+            # Connect to SQLite database
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
 
-            # 构造 sub_number
+            # Construct sub_number
             target_path = f"{main_number}_{sub_number}"  # e.g., 5_1
 
-            # 查询路径
+            # Query path
             query = "SELECT merged_text FROM Requests WHERE sub_number = ?"
 
-            # 执行查询
+            # Execute query
             cursor.execute(query, (target_path,))
             result = cursor.fetchone()
 
             if result:
-                # 提取查询结果内容
+                # Extract query result content
                 user_message = result[0].strip()
             else:
-                print(f"未找到路径：{target_path}")
+                print(f"Path not found: {target_path}")
 
         except sqlite3.Error as e:
-            print("数据库读取失败：", e)
+            print("Database read failed:", e)
 
         finally:
-            # 关闭数据库连接
+            # Close database connection
             if conn:
                 conn.close()
 
     else:
-        print(f"数据库文件不存在：{db_path}")
+        print(f"Database file does not exist: {db_path}")
 
     return user_message
 
 def fetch_ICL(db_path, main_number):
     """
-    从 SQLite 数据库中查询特定 number 的 ICL_text。
+    Query ICL_text for a specific number from SQLite database.
 
-    参数：
-        db_path (str): 数据库文件路径。
-        main_number (int): 主编号，例如 5。
+    Parameters:
+        db_path (str): Database file path.
+        main_number (int): Main number, e.g., 5.
 
-    返回：
-        str: 查询到的 ICL_text。如果未找到则返回 None。
+    Returns:
+        str: Retrieved ICL_text. Returns None if not found.
     """
-    # 初始化 ICL_text 变量
+    # Initialize ICL_text variable
     ICL_text = None
 
-    # 检查数据库文件是否存在
+    # Check if database file exists
     if os.path.exists(db_path):
         try:
-            # 连接到 SQLite 数据库
+            # Connect to SQLite database
             conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
 
-            # 查询指定主编号的 ICL_text
+            # Query ICL_text for specified main number
             query = "SELECT ICL_text FROM Texts WHERE number = ?"
             cursor.execute(query, (main_number,))
             result = cursor.fetchone()
 
             if result:
-                # 提取查询结果内容
+                # Extract query result content
                 ICL_text = result[0].strip()
             else:
-                print(f"未找到编号：{main_number}")
+                print(f"Number not found: {main_number}")
 
         except sqlite3.Error as e:
-            print("数据库读取失败：", e)
+            print("Database read failed:", e)
 
         finally:
-            # 关闭数据库连接
+            # Close database connection
             if conn:
                 conn.close()
 
     else:
-        print(f"数据库文件不存在：{db_path}")
+        print(f"Database file does not exist: {db_path}")
 
     return ICL_text

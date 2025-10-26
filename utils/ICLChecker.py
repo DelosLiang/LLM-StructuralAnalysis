@@ -9,16 +9,16 @@ def fetch_text_by_number(number):
     # Get database path from environment variable
     db_path = os.getenv("ICL_DB_PATH", "data/ICL.db")
     
-    # 连接 SQLite 数据库
+    # Connect to SQLite database
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
-    # 根据编号查询数据
+    # Query data by number
     cursor.execute("SELECT * FROM Texts WHERE number = ?", (number,))
     result = cursor.fetchone()
     conn.close()
 
-    # 如果找到数据，则返回；否则提示未找到
+    # If data is found, return it; otherwise indicate not found
     if result:
         return f"ID: {result[0]}, Number: {result[1]}, Description: {result[2]}, Related Text: {result[3]}"
     else:
