@@ -116,6 +116,29 @@ python main.py
 
 > Quantitative evaluation of the generative stability of the proposed framework on 20 structural analysis word problems (SAWPs). Each bar represents the success rate (%) across five independent runs per problem. GPT-4o achieved consistent 100% accuracy on symmetric frame configurations but exhibited lower stability (40–80%) in asymmetric or multi-story cases, reflecting challenges in spatial reasoning under text-only inputs. The results confirm that structured instruction tuning significantly improves reproducibility and execution reliability of LLM-generated structural analyses.
 
+## Dataset
+
+The framework uses the **SAWP-20 Benchmark Dataset** for structural analysis word problems:
+
+[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Datasets-blue)](https://huggingface.co/datasets/NateLiang/SAWP20)
+
+**[SAWP-20 Dataset](https://huggingface.co/datasets/NateLiang/SAWP20)** - A comprehensive benchmark containing 20 structural analysis word problems with ground truth schematics and problem descriptions.
+
+### Dataset Features:
+- **20 Structural Analysis Problems**: Diverse 2D frame configurations
+- **Ground Truth Schematics**: Visual representations of each problem
+- **Detailed Problem Descriptions**: Complete structural parameters and loading conditions
+- **Standardized Format**: Consistent problem structure for benchmarking
+
+### Problem Types Include:
+- Simple 2D frames with columns and girders
+- Multi-story and multi-bay configurations
+- Diagonal bracing systems
+- Cantilever beam structures
+- Various loading conditions (point loads, distributed loads)
+
+The dataset provides a robust foundation for evaluating LLM performance in structural analysis code generation across different complexity levels.
+
 ## Features
 
 - **Automated Code Generation**: Uses LLMs to generate OpenSeesPy structural analysis code
