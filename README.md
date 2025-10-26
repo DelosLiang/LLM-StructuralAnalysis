@@ -49,8 +49,13 @@ pip install -r requirements.txt
 
 3. Set up environment variables:
 ```bash
-cp env.example .env
-# Edit .env file with your OpenAI API key and other configurations
+# Create .env file and add your OpenAI API key
+echo "OPENAI_API_KEY=your_openai_api_key_here" > .env
+echo "ICL_DB_PATH=data/ICL.db" >> .env
+echo "REQUEST_DB_PATH=data/request.db" >> .env
+echo "OPENAI_MODEL=gpt-4o-2024-11-20" >> .env
+echo "ICL_NUM=1" >> .env
+echo "TEST_NUM=1" >> .env
 ```
 
 4. Configure your `.env` file:
@@ -62,6 +67,8 @@ OPENAI_MODEL=gpt-4o-2024-11-20
 ICL_NUM=1
 TEST_NUM=1
 ```
+
+**Note**: The database contains 20 different structural analysis word problems (SAWPs). You can change the `TEST_NUM` value (1-20) in your `.env` file to test different problem descriptions and see how the LLM handles various structural analysis scenarios.
 
 ## Usage
 
@@ -87,17 +94,29 @@ python main.py
 
 ## Framework Overview
 
+**Figure 1. LLM-driven finite element analysis workflow**
+
+A unified framework integrating Large Language Models (LLMs) with the OpenSeesPy finite element engine for automated 2D frame analysis. The data layer structures user requirements and system instructions via a SQLite database; the model layer decomposes problems into parameter extraction, FE modeling, and visualization stages, invoking the LLM sequentially to generate executable Python scripts; and the output layer compiles numerical and graphical results (deformed shapes and internal force diagrams) into structured reports, achieving end-to-end structural analysis from natural language input.
+
 <p align="center">
   <img src="assets/workflow.png" style="width: 100%; height: auto;">
 </p>
 
 ## Instruction Examples
 
+**Figure 4. Commonsense reasoning examples in system instructions**
+
+Illustrations of embedded reasoning strategies—direction, number, and spatial rationality—used to enhance LLM structural understanding. Direction reasoning ensures correct load placement based on nodal coordinates; number reasoning validates element counts against problem descriptions; and space rationality reasoning enforces geometric consistency (e.g., vertical members share x-coordinates, horizontal members share y-coordinates). These rule-based instructions bridge the gap between textual problem descriptions and accurate structural code generation.
+
 <p align="center">
   <img src="assets/Instruction_examples.png" style="width: 100%; height: auto;">
 </p>
 
 ## Results
+
+**Figure 10. Stability experiment for GPT-4o**
+
+Quantitative evaluation of the generative stability of the proposed framework on 20 structural analysis word problems (SAWPs). Each bar represents the success rate (%) across five independent runs per problem. GPT-4o achieved consistent 100% accuracy on symmetric frame configurations but exhibited lower stability (40–80%) in asymmetric or multi-story cases, reflecting challenges in spatial reasoning under text-only inputs. The results confirm that structured instruction tuning significantly improves reproducibility and execution reliability of LLM-generated structural analyses.
 
 <p align="center">
   <img src="assets/stability.png" style="width: 100%; height: auto;">
