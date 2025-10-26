@@ -1,20 +1,95 @@
-# Integrating Large Language Models for Automated Structural Analysis
+# LLM-FEM Integration Framework
 
-## Framework
+A framework for integrating Large Language Models (LLMs) with Finite Element Method (FEM) analysis for automated structural analysis.
+
+## Project Structure
+
+```
+LLM_FEM_UoA/
+├── src/                    # Source code
+│   ├── structural_analysis.py  # Generated structural analysis code
+│   ├── post_proc.py        # Post-processing module
+│   └── full_program.py     # Complete program integration
+├── config/                 # Configuration files
+│   └── param_config.py     # Parameter configuration
+├── utils/                  # Utility modules
+│   ├── database_utils.py   # Database operations
+│   ├── ICLChecker.py       # ICL data checker
+│   ├── ICLDataSaver.py     # ICL data saver
+│   ├── RequestChecker.py    # Request checker
+│   └── RequestMerger.py     # Request merger
+├── data/                   # Data files
+│   ├── *.db               # SQLite databases
+│   └── *.txt              # Text data files
+├── main.py                 # Main entry point (GPT API integration)
+├── requirements.txt        # Python dependencies
+├── env.example            # Environment variables template
+└── README.md              # This file
+```
+
+## Installation
+
+### Prerequisites
+
+- Python 3.8 or higher
+- Windows OS (primary development platform)
+
+### Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/DelosLiang/LLM_FEM_UoA.git
+cd LLM_FEM_UoA
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Set up environment variables:
+```bash
+cp env.example .env
+# Edit .env file with your OpenAI API key and other configurations
+```
+
+4. Configure your `.env` file:
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+ICL_DB_PATH=data/ICL.db
+REQUEST_DB_PATH=data/request.db
+OPENAI_MODEL=gpt-4o-2024-11-20
+ICL_NUM=1
+TEST_NUM=1
+```
+
+## Usage
+
+### Basic Usage
+
+Run the main program:
+```bash
+python main.py
+```
+
+### GPT API Testing
+
+Test the GPT API integration:
+```bash
+python main.py
+```
+
+### Database Management
+
+- **ICL Data Management**: Use `utils/ICLDataSaver.py` to manage ICL (In-Context Learning) data
+- **Request Management**: Use `utils/RequestMerger.py` to manage request data
+- **Data Checking**: Use `utils/ICLChecker.py` and `utils/RequestChecker.py` to verify data
+
+## Framework Overview
 
 <p align="center">
   <img src="assets/workflow.png" style="width: 100%; height: auto;">
 </p>
-
-## Installation
-
-### ⚠️ Platform Compatibility Notice
-
-This project was originally developed and tested using **OpenSeesPy on Windows**.  
-While the codebase follows standard Python conventions, **cross-platform compatibility (macOS / Linux)** has **not been verified**.  
-If you encounter execution issues on non-Windows systems, please adjust your local environment accordingly (e.g., OpenSeesPy installation paths, plotting backends, or file permissions).  
-
-We currently focus on functional correctness under Windows and **do not provide official support for other operating systems** at this stage.
 
 ## Instruction Examples
 
@@ -27,6 +102,34 @@ We currently focus on functional correctness under Windows and **do not provide 
 <p align="center">
   <img src="assets/stability.png" style="width: 100%; height: auto;">
 </p>
+
+## Features
+
+- **Automated Code Generation**: Uses LLMs to generate OpenSeesPy structural analysis code
+- **Database Integration**: SQLite-based storage for ICL examples and user requests
+- **Modular Design**: Clean separation of concerns with utility modules
+- **Environment Configuration**: Secure API key management through environment variables
+- **Cross-platform Compatibility**: Designed for Windows with potential Linux/macOS support
+
+## Dependencies
+
+- `openseespy`: OpenSees Python interface for structural analysis
+- `opsvis`: Visualization tools for OpenSees
+- `matplotlib`: Plotting and visualization
+- `openai`: OpenAI API client
+- `python-dotenv`: Environment variable management
+- `sqlite3`: Database operations
+
+## Configuration
+
+The framework uses environment variables for configuration. Key variables include:
+
+- `OPENAI_API_KEY`: Your OpenAI API key
+- `ICL_DB_PATH`: Path to ICL database
+- `REQUEST_DB_PATH`: Path to request database
+- `OPENAI_MODEL`: OpenAI model to use
+- `ICL_NUM`: ICL example number
+- `TEST_NUM`: Test case number
 
 ## Citation
 

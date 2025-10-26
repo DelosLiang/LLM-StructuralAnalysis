@@ -1,23 +1,35 @@
-import openai
+from openai import OpenAI
 import os
-from database_utils import fetch_merged_text
-from database_utils import fetch_ICL
+from dotenv import load_dotenv
+from utils.database_utils import fetch_merged_text
+from utils.database_utils import fetch_ICL
+
+# Load environment variables
+load_dotenv()
 
 def test_gpt_api():
-    # Set your API key
-    openai.api_key = ""
+    # Initialize OpenAI client with API key from environment variable
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY not found in environment variables")
+    
+    client = OpenAI(api_key=api_key)
 
-    # use local path for database file path
-    db_path_ICL = r"\ICL.db"
-    db_path_request = r"\request.db"
-    # Test Example Number
-    ICL_num=1
-    test_num=1
+    # Get database paths from environment variables
+    db_path_ICL = os.getenv("ICL_DB_PATH", "data/ICL.db")
+    db_path_request = os.getenv("REQUEST_DB_PATH", "data/request.db")
+    
+    # Test Example Number from environment variables
+    ICL_num = int(os.getenv("ICL_NUM", "1"))
+    test_num = int(os.getenv("TEST_NUM", "1"))
 
     user_message = fetch_merged_text(db_path_request, test_num, 1)
 
-    response = openai.ChatCompletion.create(
-        model="gpt-4o-2024-11-20",
+    # Get model from environment variable
+    model = os.getenv("OPENAI_MODEL", "gpt-4o-2024-11-20")
+    
+    response = client.chat.completions.create(
+        model=model,
         messages=[
             {"role": "user", "content": user_message}
         ]
@@ -25,11 +37,11 @@ def test_gpt_api():
 
 
     # Print the content returned by the API
-    print(response.choices[0].message["content"])
+    print(response.choices[0].message.content)
 
     # Save the generated code into a py file
-    generated_code = response.choices[0].message["content"]
-    with open("param_config.py", "w", encoding="utf-8") as code_file:
+    generated_code = response.choices[0].message.content
+    with open("config/param_config.py", "w", encoding="utf-8") as code_file:
         code_file.write(generated_code)
 
     # Read background information and request content from a db file
@@ -37,8 +49,8 @@ def test_gpt_api():
     user_message = fetch_merged_text(db_path_request, test_num, 2)
 
     # Build a request with background information
-    response = openai.ChatCompletion.create(
-        model="gpt-4o-2024-11-20",
+    response = client.chat.completions.create(
+        model=model,
         messages=[
             {"role": "system", "content": background_info},
             {"role": "user", "content": user_message}
@@ -46,37 +58,37 @@ def test_gpt_api():
     )
 
     # Print the content returned by the API
-    print(response.choices[0].message["content"])
+    print(response.choices[0].message.content)
 
     # Save the generated code into a py file
-    generated_code = response.choices[0].message["content"]
-    with open("main.py", "w", encoding="utf-8") as code_file:
+    generated_code = response.choices[0].message.content
+    with open("src/structural_analysis.py", "w", encoding="utf-8") as code_file:
         code_file.write(generated_code)
 
 
     user_message = fetch_merged_text(db_path_request, test_num, 3)
 
     # Build a request with background information
-    response = openai.ChatCompletion.create(
-        model="gpt-4o-2024-11-20",
+    response = client.chat.completions.create(
+        model=model,
         messages=[
             {"role": "user", "content": user_message}
         ]
     )
 
     # Print the content returned by the API
-    print(response.choices[0].message["content"])
+    print(response.choices[0].message.content)
 
     # Save the generated code into a py file
-    generated_code = response.choices[0].message["content"]
-    with open("post_proc.py", "w", encoding="utf-8") as code_file:
+    generated_code = response.choices[0].message.content
+    with open("src/post_proc.py", "w", encoding="utf-8") as code_file:
         code_file.write(generated_code)
 
 # Set file names
-a_filename = 'param_config.py'
-b_filename = 'main.py'
-c_filename = 'post_proc.py'
-d_filename = 'full_program.py'
+a_filename = 'config/param_config.py'
+b_filename = 'src/structural_analysis.py'
+c_filename = 'src/post_proc.py'
+d_filename = 'src/full_program.py'
 def merge_files(a_file, b_file, c_file, d_file):
     try:
         # Open A, B, C files, and read their content

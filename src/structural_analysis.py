@@ -1,8 +1,8 @@
 # Define the material property dictionary for columns and girders
 Ep = {
-    1: [2e11, 2e-3, 1.6e-5],  # Element 1 is a column
-    2: [2e11, 2e-3, 1.6e-5],  # Element 2 is a column
-    3: [2e11, 6e-3, 5.4e-5]   # Element 3 is a girder
+    1: [2e11, 2e-3, 1.6e-5],  # Element 1 (column material properties)
+    2: [2e11, 2e-3, 1.6e-5],  # Element 2 (column material properties)
+    3: [2e11, 6e-3, 5.4e-5]   # Element 3 (girder material properties)
 }
 
 # Define the node coordinates
@@ -26,16 +26,16 @@ ops.geomTransf('Linear', 1)
 # Define column and girder elements (elastic beam-column elements)
 ops.element('elasticBeamColumn', 1, 1, 2, 2e-3, 2e11, 1.6e-5, 1)  # Column element 1
 ops.element('elasticBeamColumn', 2, 3, 4, 2e-3, 2e11, 1.6e-5, 1)  # Column element 2
-ops.element('elasticBeamColumn', 3, 2, 4, 6e-3, 2e11, 5.4e-5, 1)  # Girder element
+ops.element('elasticBeamColumn', 3, 2, 4, 6e-3, 2e11, 5.4e-5, 1)  # Girder element 3
 
 # Define external loads
-Px = 2e3     # Point load in x-direction
-Wy = -1e4    # Uniform load in y-direction
-Wx = 0.0     # Uniform load in x-direction
+Px = 2e3     # Horizontal point load at node 2
+Wy = -1e4    # Uniform distributed load along the girder
+Wx = 0.0     # Uniform distributed load in the x-direction (none)
 
 # Create a dictionary to store element loads
 Ew = {
-    3: ['-beamUniform', Wy, Wx]  # Element 3 has a uniform distributed load
+    3: ['-beamUniform', Wy, Wx]  # Uniform load on element 3 (girder)
 }
 
 # Define time series for constant loads
@@ -44,7 +44,7 @@ ops.timeSeries('Constant', 1)
 ops.pattern('Plain', 1, 1)
 
 # Applying point loads
-ops.load(2, Px, 0.0, 0.0)  # Px applied in x-direction at node 2
+ops.load(2, Px, 0.0, 0.0)  # Apply Px at node 2 in the x-direction
 
 # Applying distributed loads
 for etag in Ew:

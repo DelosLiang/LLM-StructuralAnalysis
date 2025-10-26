@@ -1,8 +1,16 @@
 import sqlite3
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def create_database():
+    # Get database path from environment variable
+    db_path = os.getenv("REQUEST_DB_PATH", "data/request.db")
+    
     # Connect to the SQLite database (or create it if it doesn't exist)
-    conn = sqlite3.connect("request.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # Create the table if it doesn't already exist
@@ -18,8 +26,11 @@ def create_database():
     conn.close()
 
 def add_or_update_request(sub_number, description, merged_text):
+    # Get database path from environment variable
+    db_path = os.getenv("REQUEST_DB_PATH", "data/request.db")
+    
     # Connect to the SQLite database
-    conn = sqlite3.connect("request.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # Check if sub_number already exists
@@ -46,10 +57,11 @@ def add_or_update_request(sub_number, description, merged_text):
     conn.close()
 
 def merge_context_with_files(problem_context):
-    # File paths
-    param_file = "C:\\Users\\liang\\Desktop\\RA\\python\\gpt_4o_v2\\param_config.txt"
-    main_file = "C:\\Users\\liang\\Desktop\\RA\\python\\gpt_4o_v2\\main.txt"
-    post_proc_file = "C:\\Users\\liang\\Desktop\\RA\\python\\gpt_4o_v2\\post_proc.txt"
+    # Get file paths from environment variables or use defaults
+    data_dir = os.getenv("DATA_DIR", "data")
+    param_file = os.path.join(data_dir, "param_config.txt")
+    main_file = os.path.join(data_dir, "main.txt")
+    post_proc_file = os.path.join(data_dir, "post_proc.txt")
 
     # Read the content of the files
     try:

@@ -1,8 +1,16 @@
 import sqlite3
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def fetch_text_by_number(number):
+    # Get database path from environment variable
+    db_path = os.getenv("ICL_DB_PATH", "data/ICL.db")
+    
     # 连接 SQLite 数据库
-    conn = sqlite3.connect("ICL.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # 根据编号查询数据

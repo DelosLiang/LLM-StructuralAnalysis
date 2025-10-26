@@ -1,8 +1,16 @@
 import sqlite3
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def create_database():
+    # Get database path from environment variable
+    db_path = os.getenv("ICL_DB_PATH", "data/ICL.db")
+    
     # Connect to the SQLite database (or create it if it doesn't exist)
-    conn = sqlite3.connect("ICL.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # Create the table if it doesn't already exist
@@ -18,8 +26,11 @@ def create_database():
     conn.close()
 
 def add_or_update_text(number, description, ICL_text):
+    # Get database path from environment variable
+    db_path = os.getenv("ICL_DB_PATH", "data/ICL.db")
+    
     # Connect to the SQLite database
-    conn = sqlite3.connect("ICL.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # Check if the number already exists
@@ -46,8 +57,11 @@ def add_or_update_text(number, description, ICL_text):
     conn.close()
 
 def view_numbers():
+    # Get database path from environment variable
+    db_path = os.getenv("ICL_DB_PATH", "data/ICL.db")
+    
     # Connect to the SQLite database
-    conn = sqlite3.connect("ICL.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # Retrieve all unique numbers from the table

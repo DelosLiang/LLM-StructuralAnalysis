@@ -1,8 +1,16 @@
 import sqlite3
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 def fetch_request_by_sub_number(sub_number):
+    # Get database path from environment variable
+    db_path = os.getenv("REQUEST_DB_PATH", "data/request.db")
+    
     # Connect to the SQLite database
-    conn = sqlite3.connect("request.db")
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # Query for the specific sub-request
