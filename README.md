@@ -94,27 +94,27 @@ python main.py
 
 ## Framework Overview
 
-A unified framework integrating Large Language Models (LLMs) with the OpenSeesPy finite element engine for automated 2D frame analysis. The data layer structures user requirements and system instructions via a SQLite database; the model layer decomposes problems into parameter extraction, FE modeling, and visualization stages, invoking the LLM sequentially to generate executable Python scripts; and the output layer compiles numerical and graphical results (deformed shapes and internal force diagrams) into structured reports, achieving end-to-end structural analysis from natural language input.
-
 <p align="center">
   <img src="assets/workflow.png" style="width: 100%; height: auto;">
 </p>
 
-## Instruction Examples
+> A unified framework integrating Large Language Models (LLMs) with the OpenSeesPy finite element engine for automated 2D frame analysis. The data layer structures user requirements and system instructions via a SQLite database; the model layer decomposes problems into parameter extraction, FE modeling, and visualization stages, invoking the LLM sequentially to generate executable Python scripts; and the output layer compiles numerical and graphical results (deformed shapes and internal force diagrams) into structured reports, achieving end-to-end structural analysis from natural language input.
 
-Illustrations of embedded reasoning strategies—direction, number, and spatial rationality—used to enhance LLM structural understanding. Direction reasoning ensures correct load placement based on nodal coordinates; number reasoning validates element counts against problem descriptions; and space rationality reasoning enforces geometric consistency (e.g., vertical members share x-coordinates, horizontal members share y-coordinates). These rule-based instructions bridge the gap between textual problem descriptions and accurate structural code generation.
+## Instruction Examples
 
 <p align="center">
   <img src="assets/Instruction_examples.png" style="width: 100%; height: auto;">
 </p>
 
-## Results
+> Illustrations of embedded reasoning strategies—direction, number, and spatial rationality—used to enhance LLM structural understanding. Direction reasoning ensures correct load placement based on nodal coordinates; number reasoning validates element counts against problem descriptions; and space rationality reasoning enforces geometric consistency (e.g., vertical members share x-coordinates, horizontal members share y-coordinates). These rule-based instructions bridge the gap between textual problem descriptions and accurate structural code generation.
 
-Quantitative evaluation of the generative stability of the proposed framework on 20 structural analysis word problems (SAWPs). Each bar represents the success rate (%) across five independent runs per problem. GPT-4o achieved consistent 100% accuracy on symmetric frame configurations but exhibited lower stability (40–80%) in asymmetric or multi-story cases, reflecting challenges in spatial reasoning under text-only inputs. The results confirm that structured instruction tuning significantly improves reproducibility and execution reliability of LLM-generated structural analyses.
+## Results
 
 <p align="center">
   <img src="assets/stability.png" style="width: 100%; height: auto;">
 </p>
+
+> Quantitative evaluation of the generative stability of the proposed framework on 20 structural analysis word problems (SAWPs). Each bar represents the success rate (%) across five independent runs per problem. GPT-4o achieved consistent 100% accuracy on symmetric frame configurations but exhibited lower stability (40–80%) in asymmetric or multi-story cases, reflecting challenges in spatial reasoning under text-only inputs. The results confirm that structured instruction tuning significantly improves reproducibility and execution reliability of LLM-generated structural analyses.
 
 ## Features
 
